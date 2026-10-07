@@ -62,21 +62,23 @@ p{margin:0}
 .hero-note{margin-top:28px;color:var(--slate);font-size:.95rem;padding-left:14px;border-left:3px solid var(--cyan);max-width:48ch}
 @media (max-width:920px){.hero .wrap{grid-template-columns:1fr}}
 
-/* Build log: the one bold moment */
-.log{background:var(--ink);color:#C9D6E6;font-family:var(--mono);font-size:.86rem;line-height:1.75;padding:26px 28px 30px;
-  clip-path:polygon(0 0,calc(100% - 44px) 0,100% 26px,100% 100%,44px 100%,0 calc(100% - 26px));
-  position:relative;min-width:0}
-.log::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:linear-gradient(90deg,var(--navy),var(--blue),var(--cyan))}
-.log-head{display:flex;justify-content:space-between;gap:12px;color:#7F93AD;font-size:.8rem;padding-bottom:14px;margin-bottom:14px;border-bottom:1px solid rgba(255,255,255,.1)}
-.log ol{list-style:none;margin:0;padding:0;overflow-x:auto}
-.log li{display:grid;grid-template-columns:4.5em 1fr;gap:10px;white-space:nowrap}
-.log .t{color:#5E7390}
-.log .ok{color:var(--ok)}
-.log .hi{color:var(--cyan)}
-.log .final{margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.1);color:#fff;font-weight:500}
-.js .log li{opacity:0;transform:translateY(4px)}
-.js .log li.on{opacity:1;transform:none;transition:opacity .35s ease,transform .35s ease}
-@media (prefers-reduced-motion:reduce){.js .log li{opacity:1;transform:none}html{scroll-behavior:auto}}
+/* Hero verification visual */
+.verify-card{background:var(--ink);color:#fff;padding:30px;clip-path:polygon(0 0,calc(100% - 42px) 0,100% 24px,100% 100%,42px 100%,0 calc(100% - 24px));position:relative;min-width:0;overflow:hidden}
+.verify-card::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:linear-gradient(90deg,var(--navy),var(--blue),var(--cyan))}
+.verify-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;padding-bottom:20px;margin-bottom:22px;border-bottom:1px solid rgba(255,255,255,.1)}
+.verify-head strong{display:block;font-size:.8rem;letter-spacing:.13em;text-transform:uppercase;color:#fff}
+.verify-head span{display:block;color:#7f93ad;font-size:.72rem;margin-top:5px}
+.verify-status{color:var(--cyan);font-size:.72rem;font-weight:700;white-space:nowrap}
+.verify-flow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.verify-step{position:relative;border:1px solid rgba(255,255,255,.11);background:rgba(255,255,255,.035);padding:17px 15px 16px;min-height:125px}
+.verify-step:nth-child(2)::after,.verify-step:nth-child(4)::after{content:""}
+.verify-number{display:inline-grid;place-items:center;width:27px;height:27px;border:1px solid #356086;border-radius:50%;color:#9fb8d0;font:700 .7rem var(--mono);margin-bottom:13px}
+.verify-step h3{font-size:1rem;margin:0 0 5px;color:#fff}
+.verify-step p{font-size:.72rem;line-height:1.5;color:#8ea1b7;margin:0}
+.verify-arrow{position:absolute;color:var(--cyan);font-size:1.1rem;right:-9px;top:48px;z-index:2;background:var(--ink);padding:0 2px}
+.verify-step:nth-child(2) .verify-arrow{display:none}
+.verify-result{margin-top:14px;padding:14px 16px;border-top:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:space-between;gap:15px}
+.verify-result strong{font-size:.8rem}.verify-result span{font-size:.72rem;color:var(--cyan);font-weight:700}
 
 /* Sections */
 section{padding:clamp(64px,9vw,112px) 0}
@@ -195,20 +197,36 @@ footer small{color:var(--slate);font-size:.88rem;line-height:1.6;display:block;m
         <p class="hero-note">If your supplier fails tomorrow, the deposit is all you have. Find out now whether it works, not when you need it.</p>
       </div>
 
-      <div class="log" role="img" aria-label="Example verification log: a clean environment is built from scratch, the deposit is extracted, dependencies are resolved, the application compiles, and the rebuilt output matches the production release.">
-        <div class="log-head"><span>verification / deposit 2026-03</span><span>clean room</span></div>
-        <ol aria-hidden="true">
-          <li><span class="t">00:00</span><span>Provision isolated build machine</span></li>
-          <li><span class="t">00:04</span><span>No network, no cached packages <span class="ok">ok</span></span></li>
-          <li><span class="t">00:11</span><span>Extract deposit, check integrity <span class="ok">ok</span></span></li>
-          <li><span class="t">00:26</span><span>Install toolchain from deposit only</span></li>
-          <li><span class="t">01:40</span><span>Resolve 214 dependencies <span class="ok">ok</span></span></li>
-          <li><span class="t">02:15</span><span>Follow vendor build guide, step 9 of 9</span></li>
-          <li><span class="t">03:02</span><span>Compile solution <span class="ok">0 errors</span></span></li>
-          <li><span class="t">03:48</span><span>Compare output with production release</span></li>
-          <li><span class="t">04:05</span><span>Deploy and run functional checks <span class="ok">passed</span></span></li>
-          <li class="final"><span class="t hi">done</span><span>Deposit is complete and rebuildable</span></li>
-        </ol>
+      <div class="verify-card" role="img" aria-label="Cleanroom verification process: source deposit, clean environment, build and deployment, followed by evidence and a verification report.">
+        <div class="verify-head">
+          <div><strong>Cleanroom verification</strong><span>Independent recovery test</span></div>
+          <div class="verify-status">● INDEPENDENT</div>
+        </div>
+        <div class="verify-flow">
+          <div class="verify-step">
+            <span class="verify-number">01</span>
+            <h3>Source deposit</h3>
+            <p>Source code, documentation and build instructions.</p>
+            <span class="verify-arrow">→</span>
+          </div>
+          <div class="verify-step">
+            <span class="verify-number">02</span>
+            <h3>Clean environment</h3>
+            <p>Reconstruct the required environment independently.</p>
+          </div>
+          <div class="verify-step">
+            <span class="verify-number">03</span>
+            <h3>Build & deploy</h3>
+            <p>Follow the documented process and test the result.</p>
+            <span class="verify-arrow">→</span>
+          </div>
+          <div class="verify-step">
+            <span class="verify-number">04</span>
+            <h3>Evidence</h3>
+            <p>Record findings, results and any issues discovered.</p>
+          </div>
+        </div>
+        <div class="verify-result"><strong>Verification complete</strong><span>✓ Evidence & report</span></div>
       </div>
     </div>
   </div>
@@ -353,9 +371,6 @@ footer small{color:var(--slate);font-size:.88rem;line-height:1.6;display:block;m
   try{document.getElementById('yr').textContent=new Date().getFullYear();}catch(e){}
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(reduce)return;
-  document.documentElement.classList.add('js');
-  var items=document.querySelectorAll('.log li');
-  items.forEach(function(li,i){setTimeout(function(){li.classList.add('on')},300+i*260)});
 })();
 </script>
 </body>
